@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mosquitto:
+    image: mqtt-server
+    build:
+      context: .
+      dockerfile: /mqtt-server/Dockerfile
+    ports:
+      - "1883:1883"  # MQTT порт
+#      - "9001:9001"  # WebSocket порт
+    volumes:
+      - ./mqtt-server/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mqtt-server/data:/mosquitto/data
+      - ./mqtt-server/log:/mosquitto/log
