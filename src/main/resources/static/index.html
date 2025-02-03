@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        p {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>WebSocket Example</h1>
+    <input type="text" id="wordInput" placeholder="Enter a word..." />
+    <button onclick="sendWord()">Send Word</button>
+    <p id="statusMessage"></p>
+</div>
+
+<script>
+    // Establish WebSocket connection
+    const socket = new WebSocket('ws://localhost:8080/iot/command');
+
+    // Event listener for when the WebSocket connection opens
+    socket.addEventListener('open', function (event) {
+        document.getElementById('statusMessage').textContent = 'Connected to WebSocket!';
+    });
+
+    // Event listener for when the WebSocket receives a message
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server:', event.data);
+        document.getElementById('statusMessage').textContent = 'Server responded: ' + event.data;
+    });
+
+    // Event listener for when the WebSocket connection closes
+    socket.addEventListener('close', function (event) {
+        document.getElementById('statusMessage').textContent = 'Disconnected from WebSocket!';
+    });
+
+    // Event listener for WebSocket errors
+    socket.addEventListener('error', function (event) {
+        document.getElementById('statusMessage').textContent = 'WebSocket error occurred!';
+    });
+
+    // Function to send a word to the WebSocket server
+    function sendWord() {
+        const word = document.getElementById('wordInput').value.trim();
+        if (word === '') {
+            document.getElementById('statusMessage').textContent = 'Please enter a word!';
+            return;
+        }
+
+        // Send the word to the WebSocket server
+        socket.send(word);
+        document.getElementById('statusMessage').textContent = 'Word sent: ' + word;
+        document.getElementById('wordInput').value = ''; // Clear the input field
+    }
+</script>
+
+</body>
+</html>

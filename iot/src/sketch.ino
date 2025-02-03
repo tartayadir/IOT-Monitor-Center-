@@ -7,6 +7,8 @@
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 const char* mqttServer = "host.wokwi.internal";
+const char* mqttTopic = "iot/led";
+const char* mqttTopic = "iot/led";
 int port = 1883;
 String stMac;
 char mac[50];
@@ -59,7 +61,7 @@ void mqttReconnect() {
     if (client.connect(clientId)) {
       Serial.print(clientId);
       Serial.println(" connected");
-      client.subscribe("topicName/led");
+      client.subscribe(mqttTopic);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -81,7 +83,7 @@ void callback(char* topic, byte* message, unsigned int length) {
   }
   Serial.println();
 
-  if (String(topic) == "topicName/led") {
+  if (String(topic) == mqttTopic) {
     Serial.print("Changing output to ");
     if(stMessage == "on"){
       Serial.println("on");
