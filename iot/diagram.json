@@ -18,13 +18,67 @@
       "top": -310.28,
       "left": 155.35,
       "attrs": { "color": "red" }
-    }
+    },
+    { "type": "wokwi-light-sensor", "id": "lightSensor", "top": -200, "left": 200, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "humiditySensor", "top": -345.3, "left": 282.6, "attrs": {} },
+    {
+      "type": "wokwi-microphone",
+      "id": "noiseSensor",
+      "top": -295.38,
+      "left": -91.41,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-air-quality-sensor",
+      "id": "airQualitySensor",
+      "top": -260,
+      "left": 350,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-temperature-sensor",
+      "id": "temperatureSensor",
+      "top": -280,
+      "left": 400,
+      "attrs": {}
+    },
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": -352.8, "left": 193.8, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": -318.1, "left": -182.6, "attrs": {} }
   ],
   "connections": [
     [ "esp:TX0", "$serialMonitor:RX", "", [] ],
     [ "esp:RX0", "$serialMonitor:TX", "", [] ],
     [ "led1:C", "esp:GND.1", "black", [ "v0" ] ],
     [ "r1:1", "led1:A", "red", [ "h0" ] ],
-    [ "esp:D2", "r1:2", "red", [ "h0" ] ]
-  ]
+    [ "esp:D2", "r1:2", "red", [ "h0" ] ],
+    [ "esp:VP", "lightSensor:S", "green", [ "v0" ] ],
+    [ "lightSensor:G", "esp:GND.1", "black", [ "v0" ] ],
+    [ "lightSensor:V", "esp:3V3", "red", [ "v0" ] ],
+    [ "esp:VN", "humiditySensor:S", "blue", [ "v0" ] ],
+    [ "humiditySensor:G", "esp:GND.1", "black", [ "v0" ] ],
+    [ "humiditySensor:V", "esp:3V3", "red", [ "v0" ] ],
+    [ "esp:VP", "noiseSensor:S", "purple", [ "v0" ] ],
+    [ "noiseSensor:G", "esp:GND.1", "black", [ "v0" ] ],
+    [ "noiseSensor:V", "esp:3V3", "red", [ "v0" ] ],
+    [ "esp:VN", "airQualitySensor:S", "orange", [ "v0" ] ],
+    [ "airQualitySensor:G", "esp:GND.1", "black", [ "v0" ] ],
+    [ "airQualitySensor:V", "esp:3V3", "red", [ "v0" ] ],
+    [ "esp:VP", "temperatureSensor:S", "yellow", [ "v0" ] ],
+    [ "temperatureSensor:G", "esp:GND.1", "black", [ "v0" ] ],
+    [ "temperatureSensor:V", "esp:3V3", "red", [ "v0" ] ],
+    [ "esp:D4", "buzzer:S", "brown", [ "v0" ] ],
+    [ "buzzer:G", "esp:GND.1", "black", [ "v0" ] ],
+    [ "buzzer:V", "esp:3V3", "red", [ "v0" ] ],
+    [ "buzzer:2", "esp:D4", "red", [ "v0" ] ],
+    [ "buzzer:1", "esp:GND.1", "white", [ "v96", "h-19.2" ] ],
+    [ "humiditySensor:SDA", "esp:3V3", "green", [ "v0" ] ],
+    [ "humiditySensor:VCC", "esp:D15", "red", [ "v0" ] ],
+    [ "humiditySensor:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "noiseSensor:2", "esp:GND.2", "black", [ "v0" ] ],
+    [ "noiseSensor:1", "esp:D12", "red", [ "v9.6" ] ],
+    [ "pot1:GND", "esp:GND.2", "black", [ "v0" ] ],
+    [ "pot1:SIG", "esp:D33", "red", [ "v0" ] ],
+    [ "pot1:VCC", "esp:3V3", "limegreen", [ "v163.2", "h229.6" ] ]
+  ],
+  "dependencies": {}
 }

@@ -1,2 +1,5 @@
-PubSubClient
+DHTesp;
 ESP Async WebServer
+PubSubClient
+DHT sensor library
+Adafruit Unified Sensor
